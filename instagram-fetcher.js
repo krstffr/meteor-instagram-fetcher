@@ -49,7 +49,7 @@ InstagramFetcherHandler = function() {
 				var images = res.data.data;
 				check( images, Array );
 
-				that.log('--> --> returning: ' + images.length + ' images.\n');
+				that.log('--> --> --> returning: ' + images.length + ' images.');
 
 				// …pass the array to the callback!
 				cb( images, pagination );
@@ -87,7 +87,7 @@ InstagramFetcherHandler = function() {
 		if (!Meteor.settings.InstagramAPI.CLIENT_SECRET)
 			throw new Error('No "InstagramAPI.CLIENT_SECRET" in settings.');
 
-		that.log('--> InstagramFetcher.checkAuth() DONE!\n');
+		that.log('--> InstagramFetcher.checkAuth() DONE!');
 
 		// If all is cool, return true
 		return true;
