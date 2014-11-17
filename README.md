@@ -18,7 +18,7 @@ In your callback you not only recieve the images, but also a pagination object c
 
 ```javascript
 {
-	next_max_tag_id: '1413787976057320',
+  next_max_tag_id: '1413787976057320',
   next_min_id: '1415209810240985',
   min_tag_id: '1415209810240985',
   next_url: 'URL HERE'
