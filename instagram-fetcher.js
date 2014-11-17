@@ -11,17 +11,26 @@ InstagramFetcherHandler = function() {
 		return console.log( msg );
 	};
 
- 	// All handling of fetching of remote images
- 	that.fetchImages = {};
+	// All handling of fetching of remote images
+	that.fetchImages = {};
 
 	// The defaulty way of getting images, called by most other methods
-	that.fetchImages.defaultCb = function ( url, cb ) {
+	that.fetchImages.defaultCb = function ( url, cb, passedOptions ) {
 
 		check( cb, Function );
 
 		var options = {
 			params: { client_id: Meteor.settings.InstagramAPI.CLIENT_ID }
 		};
+
+		if (passedOptions.minTagId)
+			options.params.min_tag_id = passedOptions.minTagId;
+
+		if (passedOptions.maxTagId)
+			options.params.max_tag_id = passedOptions.maxTagId;
+
+		that.log('--> --> fetching images using these params:');
+		that.log(options);
 
 		Meteor.http.call(
 			'GET',
@@ -30,43 +39,42 @@ InstagramFetcherHandler = function() {
 				
 				if (err)
 					throw new Error( err );
-				
-				// The images are stored in the data.data object…
+
+				// Get the pagination
+				var pagination = res.data.pagination;
+				check( pagination, Object );
+
+				// The images are stored in the data.data object
+				// should be an array…
 				var images = res.data.data;
-				// …which should be an array…
 				check( images, Array );
+
+				that.log('--> --> returning: ' + images.length + ' images.\n');
+
 				// …pass the array to the callback!
-				cb(images);
+				cb( images, pagination );
 
 			});
 		
 	};
 
-	// Get image by userId
-	that.fetchImages.fromUser = function ( uesrId, cb ) {
-
-		var url = 'https://api.instagram.com/v1/users/'+uesrId+'/media/recent?callback=?';
-
-		that.log('--> --> fetching images from user: ' + uesrId + '…');
-
-		return that.fetchImages.defaultCb( url, cb );
-		
-	};
-
 	// Get image by tag (hashtag)
-	that.fetchImages.fromTag = function ( tag, cb ) {
+	that.fetchImages.fromTag = function ( options, cb ) {
 
-		var url = 'https://api.instagram.com/v1/tags/'+tag+'/media/recent?callback=?';
+		// Make sure we got a tagName!
+		check( options.tagName, String );
 
-		that.log('--> --> fetching images with tag: ' + tag + '…');
+		var url = 'https://api.instagram.com/v1/tags/'+options.tagName+'/media/recent?callback=?';
 
-		return that.fetchImages.defaultCb( url, cb );
+		that.log('--> --> fetching images with tag: ' + options.tagName + '…');
+
+		return that.fetchImages.defaultCb( url, cb, options );
 
 	};
 
 	that.checkAuth = function () {
 
-		that.log('--> --> InstagramFetcher.checkAuth()');
+		that.log('--> InstagramFetcher.checkAuth()…');
 		
 		// Make sure there is a InstagramAPI object in settings
 		if (!Meteor.settings.InstagramAPI)
@@ -79,13 +87,15 @@ InstagramFetcherHandler = function() {
 		if (!Meteor.settings.InstagramAPI.CLIENT_SECRET)
 			throw new Error('No "InstagramAPI.CLIENT_SECRET" in settings.');
 
+		that.log('--> InstagramFetcher.checkAuth() DONE!\n');
+
 		// If all is cool, return true
 		return true;
 
 	};
 
 	that.init = function () {
-		that.log('--> init InstagramFetcher…');
+		that.log('\n--> init InstagramFetcher…');
 		// Make sure user has provided AUTH
 		that.checkAuth();
 	};
