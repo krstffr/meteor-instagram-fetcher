@@ -1,6 +1,21 @@
+### Setup / setttings.json
+
+For this package to work you'll need to add your Instagram Client ID and Client Secret to your settings.json file like this:
+
+```JSON
+{
+	"InstagramAPI": {
+		"CLIENT_ID": "xxx",
+		"CLIENT_SECRET": "xxx"
+	}
+}
+```
+
+(You can sign up, create a client and obtain these values from the [Instagram Developers page](https://instagram.com/developer/).)
+
 ### Basic usage
 
-So far, all you can do is get images by tag. Do this on your server:
+So far, all you can do using this package is get images by tag. Do this on your server:
 
 ```javascript
 var options = { tagName: 'cool dude' };
