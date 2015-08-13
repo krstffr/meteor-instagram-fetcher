@@ -15,11 +15,21 @@ For this package to work you'll need to add your Instagram Client ID and Client 
 
 ### Basic usage
 
-So far, all you can do using this package is get images by tag. Do this on your server:
+So far, all you can do using this package is get images by tag or locationId. Do this on your server:
 
 ```javascript
 var options = { tagName: 'cool dude' };
 InstagramFetcher.fetchImages.fromTag(options, function ( images, pagination ) {
+	// images is a collection of the found images
+	console.log( images );
+	// The pagination object contains id's used for pagination. See below!
+	console.log( pagination );
+});
+```
+
+```javascript
+var options = { locationId: '281167589' };
+InstagramFetcher.fetchImages.fromLocation(options, function ( images, pagination ) {
 	// images is a collection of the found images
 	console.log( images );
 	// The pagination object contains id's used for pagination. See below!
