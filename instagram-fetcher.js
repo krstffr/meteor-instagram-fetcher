@@ -71,6 +71,19 @@ InstagramFetcherHandler = function() {
 		return that.fetchImages.defaultCb( url, cb, options );
 
 	};
+	
+	// Get image by location (locationId)
+	that.fetchImages.fromLocation = function ( options, cb ) {
+
+		// Make sure we got a locationId!
+		check( options.locationId, String );
+
+		var url = 'https://api.instagram.com/v1/locations/'+options.locationId+'/media/recent?callback=?';
+
+		that.log('--> --> fetching images with location id: ' + options.locationId + '…');
+
+		return that.fetchImages.defaultCb( url, cb, options );
+	};
 
 	that.checkAuth = function () {
 
