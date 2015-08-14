@@ -8,7 +8,7 @@ Package.describe({
 Package.onUse(function ( api ) {
 
 	// Set versions from.
-  api.versionsFrom("METEOR@0.9.0");
+  api.versionsFrom('METEOR@0.9.0');
 
 	api.use(['http']);
 
