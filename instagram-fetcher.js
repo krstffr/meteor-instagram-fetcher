@@ -3,7 +3,7 @@ InstagramFetcherHandler = function() {
 	var that = this;
 
 	// Instead of using console.log() directly, here we have a 
-	// "global" option to turn loggin off
+	// "global" option to turn logging off
 	that.hideLog = false;
 	that.log = function ( msg ) {
 		if (that.hideLog)
@@ -14,7 +14,7 @@ InstagramFetcherHandler = function() {
 	// All handling of fetching of remote images
 	that.fetchImages = {};
 
-	// The defaulty way of getting images, called by most other methods
+	// The default way of getting images, called by most other methods
 	that.fetchImages.defaultCb = function ( url, cb, passedOptions ) {
 
 		check( cb, Function );
