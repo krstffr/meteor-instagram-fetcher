@@ -155,3 +155,7 @@ var result = InstagramFetcher.fetchUserInfo({ self: true, liked: true, accessTok
 // Returns a search result for 'klintberg' for the currently logged in user
 var result = InstagramFetcher.fetchUserInfo({ searchQuery: 'klintberg', accessToken: 'X' });
 ```
+
+## Running tests
+
+There are a couple of tinytests written for this package. To run them, just run ```meteor test-packages ./``` when you're in the package directory.
