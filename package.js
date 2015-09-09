@@ -1,6 +1,6 @@
 Package.describe({
 	name: 'krstffr:instagram-fetcher',
-	version: '0.0.2',
+	version: '0.1.0',
 	summary: 'Fetching images from the Instagram API. Very early version.',
 	git: 'https://github.com/krstffr/meteor-instagram-fetcher'
 });
@@ -18,4 +18,11 @@ Package.onUse(function ( api ) {
 
 	api.export('InstagramFetcher');
 
+});
+
+Package.onTest(function (api) {
+
+	api.use(['tinytest', 'krstffr:instagram-fetcher'], ['server']);
+	api.addFiles('tests/tests.js', 'server');
+	
 });
