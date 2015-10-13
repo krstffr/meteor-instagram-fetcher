@@ -12,7 +12,7 @@ InstagramFetcherHandler = function() {
 		isTest = setIsTest;
 	};
 
-	// Instead of using console.log() directly, here we have a 
+	// Instead of using console.log() directly, here we have a
 	// "global" option to turn logging off
 	var showLoggin = true;
 	// Method for logging stuff
@@ -59,7 +59,7 @@ InstagramFetcherHandler = function() {
 			return HTTP.call('GET', url, options );
 
 		return HTTP.call('GET', url, options, function( err, res ) {
-		
+
 			if (err)
 				throw new Error( err );
 
@@ -98,7 +98,7 @@ InstagramFetcherHandler = function() {
 		return callEndpoint( url, cb, options );
 
 	};
-	
+
 	// Get image by location (locationId)
 	// HAS TEST
 	that.fetchImages.fromLocation = function ( options, cb ) {
@@ -138,10 +138,10 @@ InstagramFetcherHandler = function() {
 		if (options.self){
 			// Get the "liked" enpoint if "liked" is set to true
 			if (options.liked)
-				url = 'https://api.instagram.com/v1/users/self/media/liked?access_token=' + options.accessToken;
+				url = 'https://api.instagram.com/v1/users/self/media/liked';
 			// Else just get the users latest images
 			else
-				url = 'https://api.instagram.com/v1/users/self/feed?access_token=' + options.accessToken;
+				url = 'https://api.instagram.com/v1/users/self/feed';
 		}
 
 		// Get the passed userId's user info
@@ -154,12 +154,12 @@ InstagramFetcherHandler = function() {
 
 		// Return the serarch result
 		if ( options.searchQuery ){
-			// If an accessToken is passed, use it for the search…
-			if (options.accessToken)
-				url = 'https://api.instagram.com/v1/users/search?q=' + options.searchQuery + '&access_token=' + options.accessToken;
-			// …else "just" search.
-			else
-				url = 'https://api.instagram.com/v1/users/search?q=' + options.searchQuery;
+			url = 'https://api.instagram.com/v1/users/search?q=' + options.searchQuery;
+		}
+
+		if (options.accessToken) {
+			var joiner = url.indexOf('?') != -1 ? '&' : '?';
+			url = url + joiner + 'access_token=' + options.accessToken;
 		}
 
 		that.log('--> --> fetching user data at endtpoint: ' + url );
@@ -173,7 +173,7 @@ InstagramFetcherHandler = function() {
 	// and let him/her accept or deny the request.
 	// HAS TEST
 	that.getAuthUserURI = function( redirectURI ) {
-		
+
 		check( redirectURI, String );
 
 		var authUrl = 'https://api.instagram.com/oauth/authorize/';
@@ -191,7 +191,7 @@ InstagramFetcherHandler = function() {
 	// you used when you called the getAuthUserURI method!
 	// HAS TEST
 	that.getUserAccessToken = function( code, redirectURI ) {
-		
+
 		check( code, String );
 		check( redirectURI, String );
 
@@ -222,11 +222,11 @@ InstagramFetcherHandler = function() {
 		return Meteor.startup(function() {
 
 			that.log('--> InstagramFetcher.checkInstagramAPIkeysAreSet()…');
-			
+
 			// Make sure there is a InstagramAPI object in settings
 			if (!Meteor.settings.InstagramAPI)
 				throw new Error('No "InstagramAPI" in settings.');
-			
+
 			// Make sure user has provided client id and secret
 			if (!Meteor.settings.InstagramAPI.CLIENT_ID)
 				throw new Error('No "InstagramAPI.CLIENT_ID" in settings.');
