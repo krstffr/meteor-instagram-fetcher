@@ -11,7 +11,9 @@ For this package to work you'll need to add your Instagram Client ID and Client 
 }
 ```
 
-(You can sign up, create a client and obtain these values from the [Instagram Developers page](https://instagram.com/developer/).)
+You can sign up, create a client and obtain these values from the [Instagram Developers page](https://instagram.com/developer/).
+
+Don't forget to run the app using the settings file, for example using `meteor ---settings settings.json`. 
 
 ### Basic usage
 
