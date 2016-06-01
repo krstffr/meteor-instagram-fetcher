@@ -90,8 +90,9 @@ InstagramFetcherHandler = function() {
 
 		// Make sure we got a tagName!
 		check( options.tagName, String );
+		check( options.token, String );
 
-		var url = 'https://api.instagram.com/v1/tags/'+options.tagName+'/media/recent?callback=?';
+		var url = 'https://api.instagram.com/v1/tags/'+options.tagName+'/media/recent?access_token='+options.token;
 
 		that.log('--> --> fetching images with tag: ' + options.tagName );
 
@@ -105,8 +106,9 @@ InstagramFetcherHandler = function() {
 
 		// Make sure we got a locationId!
 		check( options.locationId, String );
+		check( options.token, String );
 
-		var url = 'https://api.instagram.com/v1/locations/'+options.locationId+'/media/recent?callback=?';
+		var url = 'https://api.instagram.com/v1/locations/'+options.locationId+'/?access_token=?'+options.token;
 
 		that.log('--> --> fetching images with location id: ' + options.locationId );
 
@@ -180,6 +182,8 @@ InstagramFetcherHandler = function() {
 		authUrl += '?client_id=' + Meteor.settings.InstagramAPI.CLIENT_ID;
 		authUrl += '&redirect_uri=' + redirectURI;
 		authUrl += '&response_type=code';
+		authUrl += '&scope=basic+public_content+follower_list+comments+relationships+likes';
+
 		return authUrl;
 
 	};
