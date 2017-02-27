@@ -13,11 +13,13 @@ Meteor.startup(function() {
 
 Tinytest.add('fetchImages - fromTag(), sync', function( test ) {
 	
-	var result = InstagramFetcher.fetchImages.fromTag({ tagName: 'test' });
+	var result = InstagramFetcher.fetchImages.fromTag({ tagName: 'test', token: 'TOKEN' });
 
-	test.equal( result.url, 'https://api.instagram.com/v1/tags/test/media/recent?callback=?' );
+	console.log(result);
+
+	test.equal( result.url, 'https://api.instagram.com/v1/tags/test/media/recent?access_token=TOKEN' );
 	test.equal( result.cb, undefined );
-	test.equal( result.passedOptions, { tagName: 'test' } );
+	test.equal( result.passedOptions, { tagName: 'test', token: 'TOKEN' } );
 
 	test.throws(function() {
 		InstagramFetcher.fetchImages.fromTag();
@@ -35,7 +37,7 @@ Tinytest.add('fetchImages - fromTag(), sync', function( test ) {
 
 Tinytest.add('fetchImages - fromTag(), async', function( test ) {
 
-	var result = InstagramFetcher.fetchImages.fromTag({ tagName: 'test' }, function() {});
+	var result = InstagramFetcher.fetchImages.fromTag({ tagName: 'test', token: 'TOKEN' }, function() {});
 
 	test.equal( typeof result.cb, 'function' );
 
@@ -51,11 +53,11 @@ Tinytest.add('fetchImages - fromTag(), async', function( test ) {
 
 Tinytest.add('fetchImages - fromLocation()', function( test ) {
 
-	var result = InstagramFetcher.fetchImages.fromLocation({ locationId: '123445' });
+	var result = InstagramFetcher.fetchImages.fromLocation({ locationId: '123445', token: 'TOKEN' });
 
-	test.equal( result.url, 'https://api.instagram.com/v1/locations/123445/media/recent?callback=?' );
+	test.equal( result.url, 'https://api.instagram.com/v1/locations/123445/?access_token=?TOKEN' );
 	test.equal( result.cb, undefined );
-	test.equal( result.passedOptions, { locationId: '123445' } );
+	test.equal( result.passedOptions, { locationId: '123445', token: 'TOKEN' } );
 
 	test.throws(function() {
 		InstagramFetcher.fetchImages.fromLocation();
@@ -75,7 +77,7 @@ Tinytest.add('auth user - getAuthUserURI()', function( test ) {
 
 	var result = InstagramFetcher.getAuthUserURI('http://callback.url');
 
-	test.equal( result, 'https://api.instagram.com/oauth/authorize/?client_id=TESTclientId&redirect_uri=http://callback.url&response_type=code' );
+	test.equal( result, 'https://api.instagram.com/oauth/authorize/?client_id=TESTclientId&redirect_uri=http://callback.url&response_type=code&scope=basic+public_content+follower_list+comments+relationships+likes' );
 
 	test.throws(function() {
 		InstagramFetcher.getAuthUserURI();

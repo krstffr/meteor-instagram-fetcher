@@ -23,8 +23,8 @@ htmljs@1.0.10
 http@1.2.11
 id-map@1.0.9
 jquery@1.11.10
-krstffr:instagram-fetcher@0.2.0
-local-test:krstffr:instagram-fetcher@0.2.0
+krstffr:instagram-fetcher@0.3.0
+local-test:krstffr:instagram-fetcher@0.3.0
 logging@1.1.17
 meteor@1.6.1
 minimongo@1.0.20
