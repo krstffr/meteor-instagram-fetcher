@@ -1,8 +1,8 @@
 Package.describe({
-	name: 'brmk:instagram-fetcher',
+	name: 'krstffr:instagram-fetcher',
 	version: '0.2.0',
 	summary: 'Fetching images from the Instagram API. Very early version.',
-	git: 'https://github.com/brmk/meteor-instagram-fetcher'
+	git: 'https://github.com/krstffr/meteor-instagram-fetcher'
 });
 
 Package.onUse(function ( api ) {
@@ -25,7 +25,7 @@ Package.onUse(function ( api ) {
 
 Package.onTest(function (api) {
 
-	api.use(['tinytest', 'brmk:instagram-fetcher'], ['server']);
+	api.use(['tinytest', 'krstffr:instagram-fetcher'], ['server']);
 	api.addFiles('tests/tests.js', 'server');
 
 });
