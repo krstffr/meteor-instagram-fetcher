@@ -1,3 +1,7 @@
+### Deprecated
+
+This package was created when meteor didn't support NPM and before Instagram updated their API. So please use som of the Instagram NPM-packages instead!
+
 ### Setup / setttings.json
 
 For this package to work you'll need to add your Instagram Client ID and Client Secret to your settings.json file like this:
